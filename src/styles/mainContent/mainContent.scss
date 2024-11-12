@@ -1,0 +1,16 @@
+.mainContainer {
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  margin: 22rem auto 28rem;
+  width: 20rem;
+  text-align: center;
+  &__title {
+    color: $main-text-color;
+    font-size: 1.7rem;
+    letter-spacing: 1px;
+    line-height: 2.25rem;
+    font-family: sans-serif;
+  }
+}

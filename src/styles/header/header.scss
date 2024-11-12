@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1rem;
+
+  .headerBtnHolder {
+    display: flex;
+    align-items: center;
+
+    &__button {
+      background: none;
+      border: none;
+      color: $main-header-color;
+      font-size: 1.5rem;
+    }
+  }
+}
