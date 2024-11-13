@@ -21,11 +21,11 @@ const MainContent = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();  
+    if (e.key === "Enter") {
+      e.preventDefault();
       makeApiRequest();
     }
-  }
+  };
 
   async function makeApiRequest() {
     try {
@@ -40,6 +40,7 @@ const MainContent = () => {
         model: "gpt-3.5-turbo",
       });
 
+      console.log(chatCompletion);
       const assistantMessage = {
         role: "assistant",
         content: chatCompletion.choices[0].message.content,
