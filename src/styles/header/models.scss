@@ -1,0 +1,23 @@
+.models {
+  background-color: $textarea-bg-color;
+  padding-top: 4rem;
+  color: $main-text-color;
+
+  & h2 {
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  &__options {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 1.5rem;
+    align-items: center;
+    font-size: 1.5rem;
+
+    & p {
+      letter-spacing: 4px;
+      line-height: 1rem;
+    }
+  }
+}
