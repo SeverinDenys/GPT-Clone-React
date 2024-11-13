@@ -1,6 +1,11 @@
 /* eslint-disable react/prop-types */
 
-const TextInput = ({ textInput, handleTextChange }) => {
+const TextInput = ({
+  textInput,
+  handleTextChange,
+  onBtnClick,
+  onKeyDown,
+}) => {
   return (
     <div className="chat-input">
       <div className="chat-input__container">
@@ -25,8 +30,9 @@ const TextInput = ({ textInput, handleTextChange }) => {
           onChange={handleTextChange}
           placeholder="Message ChatGPT"
           className="chat-input__textarea"
+          onKeyDown={onKeyDown}
         />
-        <button className="chat-input__send">
+        <button className="chat-input__send" onClick={onBtnClick}>
           <svg
             width="32"
             height="32"
