@@ -1,12 +1,9 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
 import Models from "../Header/Models";
 
-const Header = () => {
-  const [showModels, setShowModels] = useState(false);
-
+const Header = ({ showModels, setShowModels }) => {
   const handleBtnClick = () => {
     setShowModels(!showModels);
-    console.log("btnClicked");
   };
 
   return (
