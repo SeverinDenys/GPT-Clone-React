@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TextInput from "../TextInput/TextInput";
 import OpenAI from "openai";
+import { useContext } from "react";
+import { modelContext } from "../../App";
 
 const client = new OpenAI({
   apiKey: import.meta.env.VITE_API_KEY,
@@ -15,6 +17,7 @@ const client = new OpenAI({
 const MainContent = () => {
   const [textInput, setTextInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const { selectedModel } = useContext(modelContext);
 
   const handleTextChange = (e) => {
     setTextInput(e.target.value);
@@ -35,9 +38,12 @@ const MainContent = () => {
         { role: "user", content: textInput },
       ];
       setMessages(newMessages);
+
+      const modelToUse = selectedModel || "gpt-3.5-turbo";
+
       const chatCompletion = await client.chat.completions.create({
         messages: newMessages,
-        model: "gpt-3.5-turbo",
+        model: modelToUse,
       });
 
       console.log(chatCompletion);

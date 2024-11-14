@@ -2,10 +2,16 @@
   background-color: $textarea-bg-color;
   padding-top: 4rem;
   color: $main-text-color;
+  text-transform: uppercase;
 
   & h2 {
     text-align: center;
     font-size: 1.3rem;
+    text-transform: uppercase;
+  }
+
+  & span {
+    text-transform: lowercase;
   }
 
   &__options {
@@ -16,7 +22,7 @@
     font-size: 1.5rem;
 
     & p {
-      letter-spacing: 4px;
+      letter-spacing: 3px;
       line-height: 1rem;
     }
   }
