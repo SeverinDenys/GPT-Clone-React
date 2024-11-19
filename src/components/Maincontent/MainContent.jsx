@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState  } from "react";
 import TextInput from "../TextInput/TextInput";
 import OpenAI from "openai";
 import { useContext } from "react";
@@ -29,6 +29,7 @@ const MainContent = () => {
       makeApiRequest();
     }
   };
+ 
 
   async function makeApiRequest() {
     try {
