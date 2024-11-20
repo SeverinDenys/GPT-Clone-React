@@ -1,8 +1,8 @@
-import { useState  } from "react";
+import { useState } from "react";
 import TextInput from "../TextInput/TextInput";
 import OpenAI from "openai";
-import { useContext } from "react";
-import { modelContext } from "../../App";
+
+// import { modelContext } from "../../App";
 
 const client = new OpenAI({
   apiKey: import.meta.env.VITE_API_KEY,
@@ -17,7 +17,8 @@ const client = new OpenAI({
 const MainContent = () => {
   const [textInput, setTextInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const { selectedModel } = useContext(modelContext);
+  // const { selectedModel } = useContext(modelContext);
+  const selectedModel = "";
 
   const handleTextChange = (e) => {
     setTextInput(e.target.value);
@@ -29,7 +30,6 @@ const MainContent = () => {
       makeApiRequest();
     }
   };
- 
 
   async function makeApiRequest() {
     try {

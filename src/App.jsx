@@ -3,13 +3,13 @@ import Header from "./components/Header/Header";
 import MainContent from "./components/Maincontent/MainContent";
 import OpenAI from "openai";
 import "./styles/main.scss";
-
-export const modelContext = createContext();
+import { useSelector, useDispatch } from "react-redux";
+import { onFetched } from "../src/store/models";
 
 function App() {
-  const [selectedModel, setSelectedModel] = useState(null);
   const [showModels, setShowModels] = useState(false);
-  const [models, setModels] = useState([]);
+
+  const dispatch = useDispatch();
 
   const client = new OpenAI({
     apiKey: import.meta.env.VITE_API_KEY,
@@ -20,7 +20,9 @@ function App() {
   async function fetchModels() {
     try {
       const response = await client.models.list();
-      setModels(response.data);
+      // setModels(response.data);
+      dispatch(onFetched(response.data));
+      // dispatch({ type: "onFetched", payload: response.data });
     } catch (error) {
       console.error("Error fetching models:", error);
     }
@@ -29,16 +31,11 @@ function App() {
   useEffect(() => {
     fetchModels();
   }, []);
-
-  
-
   return (
-    <modelContext.Provider
-      value={{ selectedModel, setSelectedModel, models, setModels }}
-    >
+    <>
       <Header showModels={showModels} setShowModels={setShowModels} />
       <MainContent />
-    </modelContext.Provider>
+    </>
   );
 }
 
