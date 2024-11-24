@@ -1,25 +1,29 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { onSelectedModel } from "../../store/models";
 
 const Models = () => {
   // const onBtnClick = (model) => {
   //   setSelectedModel(selectedModel === model ? null : model);
   // };
 
- 
   const filteredModels = useSelector((state) => state.models.list);
-  const selectedModel = "";
-
+  const selectedModel = useSelector(
+    (state) => state.models.selectedModel
+  );
+  const dispatch = useDispatch();
   return (
     <div className="models">
       <h2>Choose your Model</h2>
 
       {filteredModels.map((filteredModel) => {
         return (
-          <div key={filteredModel.id}>
-            <div
-              className="models__options"
-              // onClick={() => onBtnClick(filteredModel.id)}
-            >
+          <div
+            key={filteredModel.id}
+            onClick={() =>
+              dispatch(onSelectedModel(filteredModel.id))
+            }
+          >
+            <div className="models__options">
               <p>{filteredModel.id}</p>
               {selectedModel === filteredModel.id ? (
                 <svg

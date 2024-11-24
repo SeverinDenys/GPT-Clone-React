@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 import MainContent from "./components/Maincontent/MainContent";
 import OpenAI from "openai";
 import "./styles/main.scss";
-import { useSelector, useDispatch } from "react-redux";
+import {   useDispatch } from "react-redux";
 import { onFetched } from "../src/store/models";
 
 function App() {

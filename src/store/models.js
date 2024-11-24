@@ -4,8 +4,7 @@ export const modelsSlice = createSlice({
   name: "models",
   initialState: {
     list: [],
-    isFetched: false,
-    selectedModel: "",
+    selectedModel: "gpt-3.5-turbo",
   },
   reducers: {
     onFetched: (state, action) => {
@@ -21,14 +20,14 @@ export const modelsSlice = createSlice({
         })
         .sort((a, b) => b.created - a.created);
 
-      // Log the entire filtered array for debugging purposes
-      console.log("Filtered models:", filteredModels);
       state.list = filteredModels;
-      state.isFetched = true;
+    },
+    onSelectedModel: (state, action) => {
+      state.selectedModel = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onFetched } = modelsSlice.actions;
+export const { onFetched, onSelectedModel } = modelsSlice.actions;
 export default modelsSlice.reducer;
