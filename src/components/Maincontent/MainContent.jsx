@@ -1,8 +1,8 @@
 import { useState } from "react";
 import TextInput from "../TextInput/TextInput";
 import OpenAI from "openai";
-import { useContext } from "react";
-import { modelContext } from "../../App";
+import { useSelector, useDispatch } from "react-redux";
+import { addMessage } from "../../store/messages";
 
 const client = new OpenAI({
   apiKey: import.meta.env.VITE_API_KEY,
@@ -15,9 +15,15 @@ const client = new OpenAI({
 // };
 
 const MainContent = () => {
+  const dispatch = useDispatch();
   const [textInput, setTextInput] = useState("");
-  const [messages, setMessages] = useState([]);
-  const { selectedModel } = useContext(modelContext);
+  // const [messages, setMessages] = useState([]);
+
+  const selectedModel = useSelector(
+    (state) => state.models.selectedModel
+  );
+
+  const messages = useSelector((state) => state.messages.items);
 
   const handleTextChange = (e) => {
     setTextInput(e.target.value);
@@ -37,9 +43,10 @@ const MainContent = () => {
         ...messages,
         { role: "user", content: textInput },
       ];
-      setMessages(newMessages);
+      // setMessages(newMessages);
+      dispatch(addMessage({ role: "user", content: textInput }));
 
-      const modelToUse = selectedModel || "gpt-3.5-turbo";
+      const modelToUse = selectedModel;
 
       const chatCompletion = await client.chat.completions.create({
         messages: newMessages,
@@ -51,9 +58,11 @@ const MainContent = () => {
         role: "assistant",
         content: chatCompletion.choices[0].message.content,
       };
-      setMessages((prevMessages) => {
-        return [...prevMessages, assistantMessage];
-      });
+      dispatch(addMessage(assistantMessage));
+
+      // setMessages((prevMessages) => {
+      //   return [...prevMessages, assistantMessage];
+      // });
     } catch (error) {
       console.error("Error making API request:", error);
     }
