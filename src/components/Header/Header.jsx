@@ -2,6 +2,15 @@
 import { useState } from "react";
 import Models from "../Header/Models";
 
+let items = localStorage.getItem("chats");
+if (items) {
+  items = JSON.parse(items).map((item) => {
+    return item.chatId;
+  });
+} else {
+  items = [];
+}
+
 const Header = ({ showModels, setShowModels }) => {
   const handleBtnClick = () => {
     setShowModels(!showModels);
@@ -84,10 +93,9 @@ const Header = ({ showModels, setShowModels }) => {
         <div className={`sidebar ${hamburgerMenuOpen ? "open" : ""}`}>
           <div className="sidebar-content">
             <ul>
-              <li>Home</li>
-              <li>About</li>
-              <li>Contact</li>
-              <li>Settings</li>
+              {items.map((item) => {
+                return <li key={item}>{item}</li>;
+              })}
             </ul>
           </div>
         </div>
