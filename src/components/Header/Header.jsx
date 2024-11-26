@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import Models from "../Header/Models";
+import { setChat } from "../../store/messages";
+import { useDispatch } from "react-redux";
 
 let items = localStorage.getItem("chats");
 if (items) {
@@ -16,6 +18,7 @@ const Header = ({ showModels, setShowModels }) => {
     setShowModels(!showModels);
   };
 
+  const dispatch = useDispatch();
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
 
   const toggleHamburgerMenu = () => {
@@ -94,7 +97,16 @@ const Header = ({ showModels, setShowModels }) => {
           <div className="sidebar-content">
             <ul>
               {items.map((item) => {
-                return <li key={item}>{item}</li>;
+                return (
+                  <li
+                    key={item}
+                    onClick={() => {
+                      dispatch(setChat(item));
+                    }}
+                  >
+                    {item}
+                  </li>
+                );
               })}
             </ul>
           </div>

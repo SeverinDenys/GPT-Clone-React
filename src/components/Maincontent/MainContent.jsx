@@ -23,6 +23,10 @@ const MainContent = () => {
     (state) => state.models.selectedModel
   );
 
+  const selectedChat = useSelector(
+    (state) => state.messages.selectedChat
+  );
+
   const messages = useSelector((state) => state.messages.items);
 
   const handleTextChange = (e) => {
@@ -76,7 +80,9 @@ const MainContent = () => {
             What can I help with?
           </h1>
         )}
+        {}
       </main>
+
       <section className="answerContainer">
         {messages.length > 0 &&
           messages.map((message, index) => {
@@ -89,6 +95,11 @@ const MainContent = () => {
                 }`}
                 key={index}
               >
+                {selectedChat && (
+                  <p className="answerContainer__answerHolder__text">
+                    {selectedChat.items}
+                  </p>
+                )}
                 <p className="answerContainer__answerHolder__text">
                   {message.content}
                 </p>

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react";
 
 const KEY = "chats";
 
@@ -47,9 +46,19 @@ export const messagesSlice = createSlice({
     },
     setChat: (state, action) => {
       const chatId = action.payload;
-      // write function getChat like above, pass to it chatId
-      // 
-    }
+      console.log("chatId", chatId);
+
+      const chats = getStoredItem();
+      const selectedChat = chats.find(
+        (selectedChat) => selectedChat.chatId === chatId
+      );
+
+      if (selectedChat) {
+        state.items = selectedChat.items;
+      } else {
+        state.items = [];
+      }
+    },
   },
 });
 
