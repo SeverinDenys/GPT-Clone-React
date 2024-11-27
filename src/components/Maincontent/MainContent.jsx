@@ -1,18 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextInput from "../TextInput/TextInput";
 import OpenAI from "openai";
 import { useSelector, useDispatch } from "react-redux";
-import { addMessage } from "../../store/messages";
+import { addMessage, setName } from "../../store/messages";
 
 const client = new OpenAI({
   apiKey: import.meta.env.VITE_API_KEY,
   dangerouslyAllowBrowser: true,
 });
-
-// const systemMessage = {
-//   role: "system",
-//   content: "old man",
-// };
 
 const MainContent = () => {
   const dispatch = useDispatch();
@@ -28,6 +23,28 @@ const MainContent = () => {
   );
 
   const messages = useSelector((state) => state.messages.items);
+  const getChatName = async () => {
+    const chatCompletion = await client.chat.completions.create({
+      messages: [
+        {
+          role: "user",
+          content: `
+          I will send you JSON of 2 messages. Create me a name for the chat
+          based on those messages.
+          ${JSON.stringify(messages)}
+          `,
+        },
+      ],
+      model: "gpt-3.5-turbo",
+    });
+    const chatName = chatCompletion.choices[0].message.content
+    dispatch(setName(chatName))
+  };
+  useEffect(() => {
+    if (messages.length === 2) {
+      getChatName();
+    }
+  }, [messages]);
 
   const handleTextChange = (e) => {
     setTextInput(e.target.value);

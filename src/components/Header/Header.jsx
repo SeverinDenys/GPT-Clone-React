@@ -1,19 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import Models from "../Header/Models";
-import { setChat } from "../../store/messages";
+import {
+  setChat,
+  newChat,
+  getStoredItem,
+} from "../../store/messages";
 import { useDispatch } from "react-redux";
 
-let items = localStorage.getItem("chats");
-if (items) {
-  items = JSON.parse(items).map((item) => {
-    return item.chatId;
-  });
-} else {
-  items = [];
-}
-
 const Header = ({ showModels, setShowModels }) => {
+  const items = getStoredItem();
+
   const handleBtnClick = () => {
     setShowModels(!showModels);
   };
@@ -23,7 +20,6 @@ const Header = ({ showModels, setShowModels }) => {
 
   const toggleHamburgerMenu = () => {
     setHamburgerMenuOpen(!hamburgerMenuOpen);
-    console.log("Hamburger menu open:", !hamburgerMenuOpen);
   };
 
   return (
@@ -87,6 +83,7 @@ const Header = ({ showModels, setShowModels }) => {
             viewBox="0 0 24 24"
             fill="#b4b4b4"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={() => dispatch(newChat())}
             className="header_img-newChat"
           >
             <path d="M15.6729 3.91287C16.8918 2.69392 18.8682 2.69392 20.0871 3.91287C21.3061 5.13182 21.3061 7.10813 20.0871 8.32708L14.1499 14.2643C13.3849 15.0293 12.3925 15.5255 11.3215 15.6785L9.14142 15.9899C8.82983 16.0344 8.51546 15.9297 8.29289 15.7071C8.07033 15.4845 7.96554 15.1701 8.01005 14.8586L8.32149 12.6785C8.47449 11.6075 8.97072 10.615 9.7357 9.85006L15.6729 3.91287ZM18.6729 5.32708C18.235 4.88918 17.525 4.88918 17.0871 5.32708L11.1499 11.2643C10.6909 11.7233 10.3932 12.3187 10.3014 12.9613L10.1785 13.8215L11.0386 13.6986C11.6812 13.6068 12.2767 13.3091 12.7357 12.8501L18.6729 6.91287C19.1108 6.47497 19.1108 5.76499 18.6729 5.32708Z" />
@@ -99,12 +96,12 @@ const Header = ({ showModels, setShowModels }) => {
               {items.map((item) => {
                 return (
                   <li
-                    key={item}
+                    key={item.chatId}
                     onClick={() => {
-                      dispatch(setChat(item));
+                      dispatch(setChat(item.chatId));
                     }}
                   >
-                    {item}
+                    {item.name}
                   </li>
                 );
               })}
