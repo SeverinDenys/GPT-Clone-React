@@ -58,6 +58,12 @@
         font-size: 1.8rem;
         cursor: pointer;
         transition: color 0.3s ease;
+        background-color: rgb(48, 46, 46);
+        // width: 70%;
+        padding-left: 0.7rem;
+        line-height: 3rem;
+
+        border-radius: 5px;
 
         &:hover {
           color: darken($main-header-color, 10%);

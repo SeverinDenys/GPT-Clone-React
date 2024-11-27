@@ -92,7 +92,7 @@ const Header = ({ showModels, setShowModels }) => {
 
         <div className={`sidebar ${hamburgerMenuOpen ? "open" : ""}`}>
           <div className="sidebar-content">
-            <ul>
+            <ul onClick={toggleHamburgerMenu}>
               {items.map((item) => {
                 return (
                   <li
