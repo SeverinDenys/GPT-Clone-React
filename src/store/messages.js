@@ -80,14 +80,25 @@ export const messagesSlice = createSlice({
       state.name = defaultState.name;
     },
     setName: (state, action) => {
-      console.log(action.payload);
       state.name = action.payload;
       setChatName(state.chatId, action.payload);
+    },
+    deleteChat: (state, action) => {
+      console.log(action.payload);
+      const chatId = action.payload;
+
+      const chats = getStoredItem();
+      console.log("chats", chats);
+
+      const deletedChat = chats.filter(
+        (chatToDelete) => chatToDelete.chatId !== chatId
+      );
+      localStorage.setItem(KEY, JSON.stringify(deletedChat));
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addMessage, setChat, newChat, setName } =
+export const { addMessage, setChat, newChat, setName, deleteChat } =
   messagesSlice.actions;
 export default messagesSlice.reducer;

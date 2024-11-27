@@ -54,6 +54,8 @@
       margin-top: 6.4rem;
 
       li {
+        display: flex;
+        align-items: center;
         margin: 1rem 0;
         font-size: 1.8rem;
         cursor: pointer;
@@ -65,6 +67,10 @@
 
         border-radius: 5px;
 
+        .deleteIcon {
+          width: 100%;
+          max-width: 40px;
+        }
         &:hover {
           color: darken($main-header-color, 10%);
         }
