@@ -12,7 +12,6 @@ const client = new OpenAI({
 const MainContent = () => {
   const dispatch = useDispatch();
   const [textInput, setTextInput] = useState("");
-  // const [messages, setMessages] = useState([]);
 
   const selectedModel = useSelector(
     (state) => state.models.selectedModel
@@ -23,6 +22,7 @@ const MainContent = () => {
   );
 
   const messages = useSelector((state) => state.messages.items);
+
   const getChatName = async () => {
     const chatCompletion = await client.chat.completions.create({
       messages: [
@@ -30,16 +30,17 @@ const MainContent = () => {
           role: "user",
           content: `
           I will send you JSON of 2 messages. Create me a name for the chat
-          based on those messages.
+          based on those messages. 
           ${JSON.stringify(messages)}
           `,
         },
       ],
       model: "gpt-3.5-turbo",
     });
-    const chatName = chatCompletion.choices[0].message.content
-    dispatch(setName(chatName))
+    const chatName = chatCompletion.choices[0].message.content;
+    dispatch(setName(chatName));
   };
+
   useEffect(() => {
     if (messages.length === 2) {
       getChatName();

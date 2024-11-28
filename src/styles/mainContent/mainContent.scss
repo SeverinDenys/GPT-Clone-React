@@ -16,6 +16,10 @@
   width: 100%;
   text-align: center;
 
+  @media only screen and (min-width: 768px) {
+    width: 40rem;
+  }
+
   &__answerHolder {
     width: 90%;
     margin: 1rem auto; // Spacing between messages

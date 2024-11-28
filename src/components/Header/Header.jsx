@@ -98,6 +98,7 @@ const Header = ({ showModels, setShowModels }) => {
                 return (
                   <>
                     <li
+                      style={{ backgroundColor: item.bgColor }}
                       key={item.chatId}
                       onClick={() => {
                         dispatch(setChat(item.chatId));
