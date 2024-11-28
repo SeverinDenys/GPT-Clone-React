@@ -27,8 +27,15 @@ const setChatName = (chatId, chatName) => {
 };
 
 const saveNewChat = (chatId) => {
+  let RandomBgColor =
+    "#" + Math.floor(Math.random() * 16777215).toString(16);
   const chats = getStoredItem();
-  chats.push({ chatId: chatId, items: [], name: "" });
+  chats.push({
+    chatId: chatId,
+    items: [],
+    name: "",
+    bgColor: RandomBgColor,
+  });
   localStorage.setItem(KEY, JSON.stringify(chats));
 };
 

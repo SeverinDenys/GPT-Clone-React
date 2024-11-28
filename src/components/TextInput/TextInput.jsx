@@ -9,7 +9,7 @@ const TextInput = ({
   return (
     <div className="chat-input">
       <div className="chat-input__container">
-        <div className="chat-input__icon">
+        {/* <div className="chat-input__icon">
           <svg
             width="24"
             height="24"
@@ -24,7 +24,7 @@ const TextInput = ({
               fill="currentColor"
             ></path>
           </svg>
-        </div>
+        </div> */}
         <textarea
           value={textInput}
           onChange={handleTextChange}

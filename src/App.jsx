@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import MainContent from "./components/Maincontent/MainContent";
 import OpenAI from "openai";
 import "./styles/main.scss";
-import {   useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { onFetched } from "../src/store/models";
 
 function App() {
@@ -20,9 +20,8 @@ function App() {
   async function fetchModels() {
     try {
       const response = await client.models.list();
-      // setModels(response.data);
+
       dispatch(onFetched(response.data));
-      // dispatch({ type: "onFetched", payload: response.data });
     } catch (error) {
       console.error("Error fetching models:", error);
     }

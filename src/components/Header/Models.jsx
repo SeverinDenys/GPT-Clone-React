@@ -2,10 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { onSelectedModel } from "../../store/models";
 
 const Models = () => {
-  // const onBtnClick = (model) => {
-  //   setSelectedModel(selectedModel === model ? null : model);
-  // };
-
   const filteredModels = useSelector((state) => state.models.list);
   const selectedModel = useSelector(
     (state) => state.models.selectedModel
