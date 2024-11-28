@@ -1,17 +1,26 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import Models from "../Header/Models";
+import {
+  setChat,
+  newChat,
+  getStoredItem,
+  deleteChat,
+} from "../../store/messages";
+import { useDispatch } from "react-redux";
 
 const Header = ({ showModels, setShowModels }) => {
+  const items = getStoredItem();
+
   const handleBtnClick = () => {
     setShowModels(!showModels);
   };
 
+  const dispatch = useDispatch();
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
 
   const toggleHamburgerMenu = () => {
     setHamburgerMenuOpen(!hamburgerMenuOpen);
-    console.log("Hamburger menu open:", !hamburgerMenuOpen);
   };
 
   return (
@@ -75,6 +84,7 @@ const Header = ({ showModels, setShowModels }) => {
             viewBox="0 0 24 24"
             fill="#b4b4b4"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={() => dispatch(newChat())}
             className="header_img-newChat"
           >
             <path d="M15.6729 3.91287C16.8918 2.69392 18.8682 2.69392 20.0871 3.91287C21.3061 5.13182 21.3061 7.10813 20.0871 8.32708L14.1499 14.2643C13.3849 15.0293 12.3925 15.5255 11.3215 15.6785L9.14142 15.9899C8.82983 16.0344 8.51546 15.9297 8.29289 15.7071C8.07033 15.4845 7.96554 15.1701 8.01005 14.8586L8.32149 12.6785C8.47449 11.6075 8.97072 10.615 9.7357 9.85006L15.6729 3.91287ZM18.6729 5.32708C18.235 4.88918 17.525 4.88918 17.0871 5.32708L11.1499 11.2643C10.6909 11.7233 10.3932 12.3187 10.3014 12.9613L10.1785 13.8215L11.0386 13.6986C11.6812 13.6068 12.2767 13.3091 12.7357 12.8501L18.6729 6.91287C19.1108 6.47497 19.1108 5.76499 18.6729 5.32708Z" />
@@ -83,11 +93,34 @@ const Header = ({ showModels, setShowModels }) => {
 
         <div className={`sidebar ${hamburgerMenuOpen ? "open" : ""}`}>
           <div className="sidebar-content">
-            <ul>
-              <li>Home</li>
-              <li>About</li>
-              <li>Contact</li>
-              <li>Settings</li>
+            <ul onClick={toggleHamburgerMenu}>
+              {items.map((item) => {
+                return (
+                  <>
+                    <li
+                      key={item.chatId}
+                      onClick={() => {
+                        dispatch(setChat(item.chatId));
+                      }}
+                    >
+                      {item.name}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 30 30"
+                        width="60px"
+                        height="60px"
+                        className="deleteIcon"
+                        onClick={() => {
+                          dispatch(deleteChat(item.chatId));
+                        }}
+                      >
+                        {" "}
+                        <path d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z" />
+                      </svg>
+                    </li>
+                  </>
+                );
+              })}
             </ul>
           </div>
         </div>
