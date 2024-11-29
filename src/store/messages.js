@@ -15,6 +15,16 @@ export const getStoredItem = () => {
   return [];
 };
 
+const deleteSelectedChat = (chatId) => {
+  const chats = getStoredItem();
+  console.log("chats", chats);
+
+  const deletedChat = chats.filter(
+    (chatToDelete) => chatToDelete.chatId !== chatId
+  );
+  localStorage.setItem(KEY, JSON.stringify(deletedChat));
+};
+
 const setChatName = (chatId, chatName) => {
   const chats = getStoredItem();
   const newChats = chats.map((chat) => {
@@ -88,24 +98,28 @@ export const messagesSlice = createSlice({
     },
     setName: (state, action) => {
       state.name = action.payload;
+      console.log("stateName redux", state.name);
       setChatName(state.chatId, action.payload);
     },
+    setNameById: (state, action) => {
+      console.log("action", action);
+      state.name = action.payload.name;
+      // console.log("stateName redux", state.name);
+      setChatName(action.payload.chatId, action.payload.name);
+    },
     deleteChat: (state, action) => {
-      console.log(action.payload);
-      const chatId = action.payload;
-
-      const chats = getStoredItem();
-      console.log("chats", chats);
-
-      const deletedChat = chats.filter(
-        (chatToDelete) => chatToDelete.chatId !== chatId
-      );
-      localStorage.setItem(KEY, JSON.stringify(deletedChat));
+      deleteSelectedChat(action.payload);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addMessage, setChat, newChat, setName, deleteChat } =
-  messagesSlice.actions;
+export const {
+  addMessage,
+  setChat,
+  newChat,
+  setName,
+  deleteChat,
+  setNameById,
+} = messagesSlice.actions;
 export default messagesSlice.reducer;
