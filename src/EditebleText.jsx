@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from "react";
-import { setChat, deleteChat, setName } from "../src/store/messages";
+import { setChat, deleteChat } from "../src/store/messages";
 import { useDispatch } from "react-redux";
 
 const EditebleText = ({ item, onChange }) => {

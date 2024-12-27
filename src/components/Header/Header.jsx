@@ -2,11 +2,9 @@
 import { useState } from "react";
 import Models from "../Header/Models";
 import {
-  setName,
   setNameById,
   newChat,
   getStoredItem,
-  deleteChat,
 } from "../../store/messages";
 import { useDispatch } from "react-redux";
 import EditebleText from "../../EditebleText";
