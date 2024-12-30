@@ -94,8 +94,8 @@ const Header = ({ showModels, setShowModels }) => {
           </div>
 
           <svg
-            width="24"
-            height="24"
+            width="25"
+            height="25"
             viewBox="0 0 24 24"
             fill="#b4b4b4"
             xmlns="http://www.w3.org/2000/svg"
