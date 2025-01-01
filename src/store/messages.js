@@ -17,12 +17,8 @@ export const getStoredItem = () => {
 
 const deleteSelectedChat = (chatId) => {
   const chats = getStoredItem();
-  console.log("chats", chats);
-
-  const deletedChat = chats.filter(
-    (chatToDelete) => chatToDelete.chatId !== chatId
-  );
-  localStorage.setItem(KEY, JSON.stringify(deletedChat));
+  const updatedChats = chats.filter((chat) => chat.chatId !== chatId);
+  localStorage.setItem(KEY, JSON.stringify(updatedChats));
 };
 
 const setChatName = (chatId, chatName) => {
@@ -65,7 +61,6 @@ export const messagesSlice = createSlice({
   initialState: defaultState,
   reducers: {
     addMessage: (state, action) => {
-      console.log("action", action);
       if (state.items.length === 0) {
         state.chatId = Math.random().toString();
         saveNewChat(state.chatId);
@@ -98,17 +93,23 @@ export const messagesSlice = createSlice({
     },
     setName: (state, action) => {
       state.name = action.payload;
-      console.log("stateName redux", state.name);
+
       setChatName(state.chatId, action.payload);
     },
     setNameById: (state, action) => {
-      console.log("action", action);
       state.name = action.payload.name;
-      // console.log("stateName redux", state.name);
+
       setChatName(action.payload.chatId, action.payload.name);
     },
     deleteChat: (state, action) => {
-      deleteSelectedChat(action.payload);
+      const chatIdToDelete = action.payload;
+
+      deleteSelectedChat(chatIdToDelete);
+      if (state.chatId === chatIdToDelete) {
+        state.items = defaultState.items;
+        state.chatId = defaultState.chatId;
+        state.name = defaultState.name;
+      }
     },
   },
 });

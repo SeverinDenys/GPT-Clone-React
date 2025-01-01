@@ -5,17 +5,17 @@ import {
   setNameById,
   newChat,
   getStoredItem,
+  deleteChat,
 } from "../../store/messages";
 import { useDispatch } from "react-redux";
 import EditebleText from "../../EditebleText";
 
 const Header = ({ showModels, setShowModels }) => {
   const [items, setItems] = useState(getStoredItem());
-
-  console.log("items-header", items);
+  const dispatch = useDispatch();
+  const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
 
   const onChange = (e, chatId) => {
-    console.log(e.target.value);
     const newItems = items.map((item) => {
       if (item.chatId === chatId) {
         return { ...item, name: e.target.value };
@@ -31,8 +31,13 @@ const Header = ({ showModels, setShowModels }) => {
     setShowModels(!showModels);
   };
 
-  const dispatch = useDispatch();
-  const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
+  const deleteChatHandler = (chatId) => {
+    const updatedItems = items.filter(
+      (item) => item.chatId !== chatId
+    );
+    setItems(updatedItems); // Update local state
+    dispatch(deleteChat(chatId)); // Update Redux store
+  };
 
   const toggleHamburgerMenu = () => {
     setHamburgerMenuOpen(!hamburgerMenuOpen);
@@ -112,7 +117,11 @@ const Header = ({ showModels, setShowModels }) => {
               {items.map((item) => {
                 return (
                   <>
-                    <EditebleText item={item} onChange={onChange} />
+                    <EditebleText
+                      item={item}
+                      onChange={onChange}
+                      onDelete={deleteChatHandler}
+                    />
                   </>
                 );
               })}

@@ -67,16 +67,34 @@
         cursor: pointer;
         transition: color 0.3s ease;
         background-color: rgb(48, 46, 46);
-        // width: 70%;
-        padding-left: 0.7rem;
+        padding: 0.7rem;
         line-height: 3rem;
-
         border-radius: 5px;
 
-        .deleteIcon {
-          width: 100%;
-          max-width: 40px;
+        .text {
+          flex-grow: 1; /* Ensures text takes up remaining space */
+          text-align: left;
         }
+
+        .icons {
+          display: flex; /* Aligns icons horizontally */
+          gap: 0.5rem; /* Adds spacing between icons */
+          justify-content: flex-end; /* Aligns icons to the right */
+          align-items: center; /* Ensures icons are vertically centered */
+        }
+
+        .editIcon {
+          width: 35px;
+          height: 35px;
+          cursor: pointer;
+        }
+
+        .deleteIcon {
+          width: 40px;
+          height: 40px;
+          cursor: pointer;
+        }
+
         &:hover {
           color: darken($main-header-color, 10%);
         }
