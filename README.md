@@ -1,8 +1,10 @@
-# React + Vite
+# GPT Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clone of GPT-based chat functionality built using React, Sass, OpenAI API, and Redux for state management.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Chat Interface:** Interactive and user-friendly chat interface.
+- **OpenAI API Integration:** Communicate with OpenAI's API to generate responses.
+- **State Management:** Utilize Redux for managing application state effectively.
+- **Dynamic Theming:** Customizable styles using Sass.
