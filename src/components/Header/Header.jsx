@@ -4,14 +4,12 @@ import Models from "../Header/Models";
 import {
   setNameById,
   newChat,
-  getStoredItem,
   deleteChat,
 } from "../../store/messages";
 import { useDispatch } from "react-redux";
 import EditebleText from "../../EditebleText";
 
-const Header = ({ showModels, setShowModels }) => {
-  const [items, setItems] = useState(getStoredItem());
+const Header = ({ showModels, setShowModels, items, setItems }) => {
   const dispatch = useDispatch();
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
 

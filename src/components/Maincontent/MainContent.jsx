@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { useState, useEffect } from "react";
 import TextInput from "../TextInput/TextInput";
 import OpenAI from "openai";
@@ -9,7 +11,7 @@ const client = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-const MainContent = () => {
+const MainContent = ({ setItems, items }) => {
   const dispatch = useDispatch();
   const [textInput, setTextInput] = useState("");
 
@@ -22,6 +24,7 @@ const MainContent = () => {
   );
 
   const messages = useSelector((state) => state.messages.items);
+  const currentChat = useSelector((state) => state.messages);
 
   const getChatName = async () => {
     const chatCompletion = await client.chat.completions.create({
@@ -38,6 +41,7 @@ const MainContent = () => {
       model: "gpt-3.5-turbo",
     });
     const chatName = chatCompletion.choices[0].message.content;
+    setItems([...items, { ...currentChat, name: chatName }]);
     dispatch(setName(chatName));
   };
 

@@ -5,9 +5,11 @@ import OpenAI from "openai";
 import "./styles/main.scss";
 import { useDispatch } from "react-redux";
 import { onFetched } from "../src/store/models";
+import { getStoredItem } from "./store/messages";
 
 function App() {
   const [showModels, setShowModels] = useState(false);
+  const [items, setItems] = useState(getStoredItem());
 
   const dispatch = useDispatch();
 
@@ -32,8 +34,13 @@ function App() {
   }, []);
   return (
     <>
-      <Header showModels={showModels} setShowModels={setShowModels} />
-      <MainContent />
+      <Header
+        showModels={showModels}
+        setShowModels={setShowModels}
+        items={items}
+        setItems={setItems}
+      />
+      <MainContent setItems={setItems} items={items} />
     </>
   );
 }
